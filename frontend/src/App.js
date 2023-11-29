@@ -9,7 +9,7 @@ function App() {
       <Navigation></Navigation>
 
       <div>
-        <HomePage></HomePage>
+        <HomePage>Product Card</HomePage>
       </div>
     </div>
   );
