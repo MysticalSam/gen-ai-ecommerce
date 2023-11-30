@@ -14,7 +14,6 @@ const saltRounds = 10;
 //import jwt for token generation
 
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET;
 
 //Create a async function for user creation with accepting userData in try catch block 
 

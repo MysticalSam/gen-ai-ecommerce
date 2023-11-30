@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 // Set JWT Secret Key
 
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || '23jrimudq3uer3w4ryuenmdriuwqer';
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 //require user model
 

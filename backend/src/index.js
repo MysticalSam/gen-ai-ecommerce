@@ -1,3 +1,5 @@
+//Require Dotenv
+require('dotenv').config()
 //import express
 
 const express = require('express');
@@ -31,6 +33,34 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.json({
         message: 'Welcome to Index Page'
+    });
+})
+
+//Create a get route for login page
+app.get('/login', (req, res) => {
+    res.send({
+        message: 'Welcome to Login Page'
+    });
+})
+
+//Create a get route for register page
+app.get('/register', (req, res) => {
+    res.send({
+        message: 'Welcome to Register Page'
+    });
+})
+
+//Create a get route for products page
+app.get('/products', (req, res) => {
+    res.send({
+        message: 'Welcome to Products Page'
+    });
+})
+
+//Create a get route for cart page
+app.get('/cart', (req, res) => {
+    res.send({
+        message: 'Welcome to Cart Page'
     });
 })
 
