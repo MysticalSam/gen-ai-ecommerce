@@ -1,6 +1,7 @@
 //create a category model schema with data
 
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const Schema = mongoose.Schema;
 
 const categorySchema = new Schema({
@@ -9,15 +10,15 @@ const categorySchema = new Schema({
         required: true,
         maxlength: 50
     },
-    parentCategory: {
-        type: Schema.Types.ObjectId,
+    parentCategoryId: {
+        type: ObjectId,
         ref: 'categories'
     },
     level: {
         type: Number,
         required: true,
     }
-})
+}, { timestamps: true })
 
 //create category model with name categories
 

@@ -26,15 +26,16 @@ const createUser = async (userData) => {
             throw new Error('Email already exists');
         }
         //hash password with bcrypt
+        console.log(userData);
         password = await bcrypt.hash(password, saltRounds);
-
         //create a new user
         const user = await User.create({ firstName, lastName, email, password });
         console.log("created user is: ", user);
         return user;
 
     } catch (error) {
-        res.status(400).send(error);
+        console.log(error);
+        throw new Error(error.message);
     }
 }
 
@@ -50,7 +51,7 @@ const getUserById = async (userId) => {
         return user;
 
     } catch (error) {
-        res.status(400).send(error);
+        throw new Error(error.message);
     }
 }
 
@@ -66,7 +67,7 @@ const getUserByEmail = async (email) => {
         return user;
 
     } catch (error) {
-        res.status(400).send(error);
+        throw new Error(error.message);
     }
 }
 
@@ -86,7 +87,7 @@ const getUserProfileByToken = async (token) => {
         return user;
 
     } catch (error) {
-        res.status(401).send('Unauthorized');
+        throw new Error(error.message);
     }
 }
 

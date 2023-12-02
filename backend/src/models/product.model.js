@@ -1,9 +1,7 @@
 //import mongoose
 
 const mongoose = require('mongoose');
-
-//create schema
-
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const Schema = mongoose.Schema;
 
 //Add product schema
@@ -11,29 +9,35 @@ const Schema = mongoose.Schema;
 const productSchema = new Schema({
     name: {
         type: String,
+        trim: true,
         required: true
     },
     price: {
         type: Number,
+        trim: true,
         required: true
     },
     description: {
         type: String,
+        trim: true,
         required: true
     },
-    category: {
-        type: Schema.Types.ObjectId,
+    categoryId: {
+        type: ObjectId,
+        required: true,
         ref: 'categories'
     },
     image: {
         type: String,
+        trim: true,
         required: true
     },
     rating: {
         type: Number,
+        trim: true,
         default: 0
-    },    
-})
+    },
+}, { timestamps: true })
 
 //Create model with name products
 

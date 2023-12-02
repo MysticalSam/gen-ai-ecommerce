@@ -1,5 +1,5 @@
 const app = require('.');
-const connectToMongo = require('./config/db');
+const connectToMongo = require('./config/db.mongoose');
 
 //define port
 const port = process.env.PORT || 4000;

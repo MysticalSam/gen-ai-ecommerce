@@ -1,11 +1,11 @@
 //Add mongodb url
 const mongoose = require('mongoose')
-const mongodbUrl = "mongodb+srv://mysticalsam:83SuJAHlSKsZHFAb@cluster0.qk0yzih.mongodb.net/?retryWrites=true&w=majority"
+const mongodbUrl = process.env.MONGO_DB_URL
 
 //Create a function to connect to mongodb
 
 const connectToMongo = async () => {
-    await mongoose.connect(mongodbUrl, console.log("Connected to MongoDB"))
+    await mongoose.connect(mongodbUrl, console.log("MongoDB Connection Made"))
 }
 
 // Wait for database to connect, logging an error if there is a problem
