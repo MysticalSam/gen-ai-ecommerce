@@ -29,40 +29,14 @@ app.use(cors());
 
 app.use(express.json());
 
-//get index route and return a message in json with status 200
-app.get('/', (req, res) => {
-    res.json({
-        message: 'Welcome to Index Page'
-    });
-})
+const authRouter = require('./routes/auth.route');
+app.use('/api/v1/auth', authRouter);
 
-//Create a get route for login page
-app.get('/login', (req, res) => {
-    res.send({
-        message: 'Welcome to Login Page'
-    });
-})
+const userRouter = require('./routes/user.route');
+app.use('/api/v1/user', userRouter);
 
-//Create a get route for register page
-app.get('/register', (req, res) => {
-    res.send({
-        message: 'Welcome to Register Page'
-    });
-})
-
-//Create a get route for products page
-app.get('/products', (req, res) => {
-    res.send({
-        message: 'Welcome to Products Page'
-    });
-})
-
-//Create a get route for cart page
-app.get('/cart', (req, res) => {
-    res.send({
-        message: 'Welcome to Cart Page'
-    });
-})
+// const productRouter = require('./routes/product.route');
+// app.use('/api/v1/product', productRouter);
 
 //export module app
 module.exports = app;

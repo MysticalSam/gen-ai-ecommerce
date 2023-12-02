@@ -1,18 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
-import reportWebVitals from './reportWebVitals.js';
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
-
 import './index.css';
 
-import Layout from './Layout.jsx';
-import Catalog from './customer/components/Catalog.jsx';
-import HomePage from './customer/pages/homepage/HomePage.jsx';
-import Login from './customer/pages/login/Login.jsx';
-import Register from './customer/pages/register/Register.jsx';
-import Cart from './customer/pages/cart/Cart.jsx';
-import Chekout from './customer/pages/checkout/Checkout.jsx';
+import reportWebVitals from './reportWebVitals.js';
+
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+
+import {Layout, HomePage, Login, Register, Cart, Catalog, Chekout, ForgotPassword} from './Components.jsx';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter(
@@ -57,6 +52,7 @@ const router = createBrowserRouter(
       <Route path="register" element={<Register />} />
       <Route path="cart" element={<Cart />} />
       <Route path="checkout" element={<Chekout />} />
+      <Route path="forgot-password" element={<ForgotPassword />} />
     </Route>
   )
 )

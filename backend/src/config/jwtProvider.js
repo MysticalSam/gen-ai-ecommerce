@@ -8,7 +8,7 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 //require user model
 
-const User = require("../models/user");
+const User = require("../models/user.model");
 
 //generate token with userId
 

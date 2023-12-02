@@ -38,9 +38,9 @@ const createUser = async (userData) => {
     }
 }
 
-//add a method for find user by id
+//add a method for get user by id
 
-const findUserById = async (userId) => {
+const getUserById = async (userId) => {
     try {
         const user = await User.findById(userId);
         //if no user is found throw an error that user with this id is not found.
@@ -54,9 +54,9 @@ const findUserById = async (userId) => {
     }
 }
 
-//add a method for find user by email
+//add a method for get user by email
 
-const findUserByEmail = async (email) => {
+const getUserByEmail = async (email) => {
     try {
         const user = await User.findOne(email);
         //if no user is found throw an error that user with this email is not found.
@@ -77,7 +77,7 @@ const getUserProfileByToken = async (token) => {
         //get user id from token
         const userId = jwtProvider.getUserIDFromToken(token);
         //find user by id
-        const user = await findUserById(userId);
+        const user = await getUserById(userId);
         //if no user is found throw an error that user with this id is not found.
         if (!user) {
             throw new Error('User not found with this id: ', userId);
@@ -91,5 +91,5 @@ const getUserProfileByToken = async (token) => {
 }
 
 
-//export module with createUser, findUserById and findUserByEmail
-module.exports = { createUser, findUserById, findUserByEmail }
+//export module with createUser, findUserById, findUserByEmail and getUserProfileByToken
+module.exports = { createUser, getUserById, getUserByEmail, getUserProfileByToken }

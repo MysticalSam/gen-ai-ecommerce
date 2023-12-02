@@ -121,8 +121,9 @@ const navigation = {
     },
   ],
   pages: [
-    { name: 'Company', href: '#' },
-    { name: 'Stores', href: '#' },
+    { name: 'Home', href: '/' },
+    { name: 'About', href: 'about' },
+    { name: 'Products', href: 'products' },
   ],
 }
 
@@ -278,7 +279,7 @@ export default function Navigation() {
 
       <header className="relative bg-white">
         <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-          Get free delivery on orders over $100
+        E-Commerce Website Created Using Gen-AI Prompts (Tech Stack - FrontEnd: ReactJS and Tailwind, Backend: NodeJS)
         </p>
 
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -420,7 +421,7 @@ export default function Navigation() {
                 <div className="hidden lg:ml-8 lg:flex">
                   <Link to="#" className="flex items-center text-gray-700 hover:text-gray-800">
                     <img
-                      src="https://tailwindui.com/img/flags/flag-india.svg"
+                      src="https://tailwindui.com/img/flags/flag-canada.svg"
                       alt=""
                       className="block h-auto w-5 flex-shrink-0"
                     />
@@ -439,7 +440,7 @@ export default function Navigation() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <Link to="#" className="group -m-2 flex items-center p-2">
+                  <Link to="cart" className="group -m-2 flex items-center p-2">
                     <ShoppingBagIcon
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
