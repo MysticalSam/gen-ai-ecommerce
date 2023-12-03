@@ -1,20 +1,12 @@
 //require jwttoken
-
 const jwt = require("jsonwebtoken");
 
-// Set JWT Secret Key
+//generate token with user
 
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
-
-//require user model
-
-const User = require("../models/user.model");
-
-//generate token with userId
-
-const generateToken = (userId) => {
-    const token = jwt.sign({ userId }, JWT_SECRET_KEY, {
-        expiresIn: "48h",
+const generateToken = (user) => {
+    const { _id, firstName, email } = user;
+    const token = jwt.sign({ _id, firstName, email }, process.env.JWT_SECRET_KEY, {
+        expiresIn: process.env.JWT_TOKEN_EXPIRY,
     });
     return token;
 }
@@ -22,8 +14,8 @@ const generateToken = (userId) => {
 //Get User ID from Token
 
 const getUserIDFromToken = (token) => {
-    const decoded = jwt.verify(token, JWT_SECRET_KEY);
-    return decoded.userId;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    return decoded._id;
 }
 
 //export module with generateToken and getUserIDFromToken

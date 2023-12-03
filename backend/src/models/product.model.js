@@ -22,10 +22,14 @@ const productSchema = new Schema({
         trim: true,
         required: true
     },
-    categoryId: {
-        type: ObjectId,
+    // categoryId: {
+    //     type: ObjectId,
+    //     required: true,
+    //     ref: 'Category'
+    // },
+    category: {
+        type: String,
         required: true,
-        ref: 'categories'
     },
     image: {
         type: String,
@@ -41,6 +45,6 @@ const productSchema = new Schema({
 
 //Create model with name products
 
-const Product = mongoose.model('products', productSchema);
+const Product = mongoose.model('Product', productSchema);
 
 module.exports = Product;

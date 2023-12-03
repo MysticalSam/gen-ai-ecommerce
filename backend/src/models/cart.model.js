@@ -10,14 +10,14 @@ const cartSchema = new Schema({
     //schema for user with mongoose object id
     userId: {
         type: ObjectId,
-        ref: 'users',
+        ref: 'User',
         required: true
     },
     //array of cartItems with mongoose object id
     cartItems: [{
         productId: {
             type: ObjectId,
-            ref: 'products',
+            ref: 'Product',
             required: true
         },
         quantity: {
@@ -29,6 +29,6 @@ const cartSchema = new Schema({
 
 //create cart model with name cart
 
-const Cart = mongoose.model('carts', cartSchema);
+const Cart = mongoose.model('Cart', cartSchema);
 
 module.exports = Cart;

@@ -12,7 +12,7 @@ const categorySchema = new Schema({
     },
     parentCategoryId: {
         type: ObjectId,
-        ref: 'categories'
+        ref: 'Category'
     },
     level: {
         type: Number,
@@ -22,5 +22,5 @@ const categorySchema = new Schema({
 
 //create category model with name categories
 
-const Category = mongoose.model('categories', categorySchema);
+const Category = mongoose.model('Category', categorySchema);
 module.exports = Category;

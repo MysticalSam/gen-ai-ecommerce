@@ -9,7 +9,7 @@ const AddressSchema = new Schema({
     //add schema for user id which is an array and store mongoose schema object id with reference of user
     userId: [{
         type: ObjectId,
-        ref: 'users'
+        ref: 'User'
     }],
     fistName: {
         type: String,
@@ -48,6 +48,6 @@ const AddressSchema = new Schema({
     },
 }, { timestamps: true })
 //create address schema with name addresses
-const Address = mongoose.model('addresses', AddressSchema);
+const Address = mongoose.model('Address', AddressSchema);
 //export module
 module.exports = Address;
