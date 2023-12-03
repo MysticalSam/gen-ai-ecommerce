@@ -10,9 +10,19 @@ const cors = require('cors');
 const app = express();
 
 //middlewares
+
 //use cors
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true
+}))
+
+//Use Json with limit of 16kb
+app.use(express.json({limit: "16kb"}))
+//use URLencoded with limit of 16kb
+app.use(express.urlencoded({extended: true, limit: "16kb"}))
+//use static folder
+app.use(express.static("public"))
 
 //Routes
 

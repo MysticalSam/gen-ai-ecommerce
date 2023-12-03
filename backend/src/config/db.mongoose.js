@@ -1,15 +1,16 @@
 //Add mongodb url
 const mongoose = require('mongoose')
-const mongodbUrl = process.env.MONGO_DB_URL
 
 //Create a function to connect to mongodb
 
 const connectToMongo = async () => {
-    await mongoose.connect(mongodbUrl, console.log("MongoDB Connection Made"))
+    try {
+        const connectionInstance = await mongoose.connect(`${process.env.MONGO_DB_URL}/${process.env.DB_NAME}`)
+        console.log(`\nMongoDB connected !! DB HOST: ${connectionInstance.connection.host}`);
+    } catch (error) {
+        console.log("MONGODB connection FAILED ", error);
+        process.exit(1)
+    }
 }
 
-// Wait for database to connect, logging an error if there is a problem
-connectToMongo().catch((err) => console.log(err));
-
-//Export the module
 module.exports = connectToMongo;

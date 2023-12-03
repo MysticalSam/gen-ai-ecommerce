@@ -4,10 +4,12 @@ const connectToMongo = require('./config/db.mongoose');
 //define port
 const port = process.env.PORT || 4000;
 
-//listen to port
-
-app.listen(port, () => {
-    //connect with mongodb
-    connectToMongo();
-    console.log(`E-commerce API Server is running on port ${port}`);
-})
+connectToMongo()
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`E-commerce API Server is running on port : ${port}`);
+        })
+    })
+    .catch((err) => {
+        console.log("MONGO db connection failed !!! ", err);
+    })
