@@ -1,0 +1,1 @@
+https://persistentsystems-my.sharepoint.com/personal/pooja_pali_persistent_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fpooja%5Fpali%5Fpersistent%5Fcom%2FDocuments%2FGenAI%20for%20Practitioner%2FGenAI%20for%20Practitioners%20%2D%20Hands%2Don%20project%20submission&ga=
