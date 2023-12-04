@@ -34,7 +34,7 @@ const getProductById = asyncHandler(async (req, res) => {
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-// Add Products to Database
+// Add Dummy Products to Database from JSON file
 
 const addProducts = asyncHandler(async (req, res) => {
     const checkProducts = await Product.exists({ name: "Mens Cotton Jacket" })

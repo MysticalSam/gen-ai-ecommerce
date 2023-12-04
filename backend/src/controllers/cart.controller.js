@@ -99,40 +99,20 @@ const updateCart = asyncHandler(async (req, res) => {
     }
     //If cart already exists for user,
     if (cart) {
-
         const productIndex = cart.cartItems.findIndex((product) => product.productId == productId);
         //check if product exists or not
         if (productIndex > -1) {
-
-            console.log("1. product index is: ", productIndex);
             let productItem = cart.cartItems[productIndex];
             productItem.quantity = quantity;
             cart.cartItems[productIndex] = productItem;
-            cart.cartItems.splice(productIndex, 1);
-            // if (quantity == 0) {
-            //     console.log("quantity is :", quantity);
-            //     //delete product entry from cart
-            //     await cart.deleteOne({ productId })
-            //     res.status(200).json(
-            //         new ApiResponse(200, cart, "Item Removed From Cart"));
-            // }
-            // else {
-            console.log("2. product index is: ", productIndex);
-            console.log("quantity is :", quantity, "still adding");
+            if (quantity == 0) {
+                cart.cartItems.splice(productIndex, 1);
+            }
             await cart.save();
             res.status(200).json(
                 new ApiResponse(200, cart, "Item Updated in Cart"));
         } else {
-            // if (quantity == 0) {
-            //     //delete product entry from cart
-            //     await cart.deleteOne({ productId })
-            //     res.status(200).json(
-            //         new ApiResponse(200, cart, "Item Removed From Cart"));
-            // }
-            // else {
-            console.log("3. product index is: ", productIndex);
             cart.cartItems.push({ productId, quantity });
-            console.log("quantity is :", quantity, "still adding problem is here");
             await cart.save();
             res.status(200).json(
                 new ApiResponse(200, cart, "New Item Added to Cart"));
@@ -140,34 +120,6 @@ const updateCart = asyncHandler(async (req, res) => {
         // }
     }
 })
-
-const deleteCart = async (req, res) => {
-    const owner = req.user._id;
-    const itemId = req.query.itemId;
-    try {
-        let cart = await Cart.findOne({ owner });
-        const itemIndex = cart.items.findIndex((item) => item.itemId == itemId);
-        if (itemIndex > -1) {
-            let item = cart.items[itemIndex];
-            cart.bill -= item.quantity * item.price;
-            if (cart.bill < 0) {
-                cart.bill = 0
-            }
-            cart.items.splice(itemIndex, 1);
-            cart.bill = cart.items.reduce((acc, curr) => {
-                return acc + curr.quantity * curr.price;
-            }, 0)
-            cart = await cart.save();
-            res.status(200).send(cart);
-        } else {
-            res.status(404).send("item not found");
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(400).send();
-    }
-
-}
 
 //export modules
 module.exports = { getUserCart, addToCart, updateCart }

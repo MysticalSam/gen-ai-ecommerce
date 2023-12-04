@@ -38,6 +38,8 @@ app.use('/api/v1/products', productRouter);
 const cartRouter = require('./routes/cart.route');
 app.use('/api/v1/cart', cartRouter);
 
+const checkoutRouter = require('./routes/checkout.route');
+app.use('/api/v1/checkout', checkoutRouter);
 
 //export module app
 module.exports = app;
