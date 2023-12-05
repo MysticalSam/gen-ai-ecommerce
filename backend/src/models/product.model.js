@@ -12,34 +12,85 @@ const productSchema = new Schema({
         trim: true,
         required: true
     },
-    price: {
-        type: Number,
+    slug: {
+        type: String,
         trim: true,
-        required: true
+        required: true,
+        unique: true,
+    },
+    sku: {
+        type: String,
+        trim: true,
+        required: true,
+        unique: true,
+    },
+    price: {
+        amount: {
+            type: Number,
+            trim: true,
+            required: true
+        },
+        currency: {
+            type: String,
+            trim: true,
+            required: true,
+            default: 'INR'
+        },
     },
     description: {
         type: String,
         trim: true,
         required: true
     },
-    // categoryId: {
-    //     type: ObjectId,
-    //     required: true,
-    //     ref: 'Category'
-    // },
     category: {
-        type: String,
+        type: ObjectId,
         required: true,
+        ref: 'Category'
     },
-    image: {
-        type: String,
-        trim: true,
-        required: true
-    },
-    rating: {
-        type: Number,
-        trim: true,
-        default: 0
+    images: [{
+        urls: {
+            large: {
+                type: String,
+                trim: true,
+            },
+            medium: {
+                type: String,
+                trim: true,
+            },
+            thumb: {
+                type: String,
+                trim: true,
+            },
+        },
+        isCover: Boolean,
+    }],
+    ratings: [{
+        userId: {
+            type: ObjectId,
+            ref: 'User',
+        },
+        rating: {
+            type: Number,
+        },
+    }],
+    reviews: [{
+        userId: {
+            type: ObjectId,
+            ref: 'User',
+        },
+        review: {
+            title: {
+                type: String,
+                trim: true,
+            },
+            description: {
+                type: String,
+                trim: true,
+            },
+        },
+    }],
+    options: {
+
     },
 }, { timestamps: true })
 

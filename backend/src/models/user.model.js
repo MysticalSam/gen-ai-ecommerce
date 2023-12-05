@@ -23,7 +23,7 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        minLength: 7,
+        minLength: 8,
         trim: true,
         validate(value) {
             if (value.toLowerCase().includes('password')) {
@@ -44,23 +44,51 @@ const userSchema = new Schema({
         },
         required: true
     },
-    role:
+    dob:
     {
-        type: String,
-        required: true,
-        default: "customer"
+        type: Date,
     },
     mobile: {
-        type: String
+        type: String,
+        trim: true,
     },
-    //create schema for addresses which is an array and store mongoose schema object id with reference of addresses
+    gender: {
+        type: String,
+        trim: true,
+        lowercase: true,
+        enum: ['male', 'female', 'other']
+    },
     addresses:
         [{
-            addressId: {
-                type: ObjectId,
-                ref: 'Address'
-            }
+            streetAddress: {
+                type: String,
+                trim: true,
+            },
+            city: {
+                type: String,
+                trim: true,
+            },
+            state: {
+                type: String,
+                trim: true,
+            },
+            pincode: {
+                type: String,
+                trim: true,
+            },
         }],
+    isActive: {
+        type: Boolean,
+        default: false,
+    },
+    isEmailVerified: {
+        type: Boolean,
+        default: false,
+    },
+    isMobileVerified: {
+        type: Boolean,
+        default: false,
+    },
 }, { timestamps: true })
 
 userSchema.pre("save", async function (next) {

@@ -8,16 +8,22 @@ const categorySchema = new Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
         maxlength: 50
+    },
+    slug: {
+        type: String,
+        required: true,
+        unique: true
     },
     parentCategoryId: {
         type: ObjectId,
         ref: 'Category'
     },
-    level: {
-        type: Number,
-        required: true,
-    }
+    // level: {
+    //     type: Number,
+    //     required: true,
+    // }
 }, { timestamps: true })
 
 //create category model with name categories
