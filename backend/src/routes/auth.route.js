@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require('../controllers/auth.controller');
 
 router.post('/login', authController.login);
+router.post('/otp-verify', authController.validateOTP);
 router.post('/changepassword', authController.changePassword);
 // router.post('/logout', authController.logout);
 

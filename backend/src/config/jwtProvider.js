@@ -18,6 +18,23 @@ const getUserIDFromToken = (token) => {
     return decoded._id;
 }
 
+const generateOTPSecret = (_id, otp) => {
+    const token = jwt.sign({ _id, otp }, process.env.JWT_OTP_SECRET_KEY, {
+        expiresIn: process.env.JWT_OTP_TOKEN_EXPIRY,
+    })
+    return token;
+}
+
+const verifyOTPSecret = (token) => {
+    const decoded = jwt.verify(token, process.env.JWT_OTP_SECRET_KEY);
+    return decoded.otp;
+}
+
+const getUserIDFromOTPToken = (token) => {
+    const decoded = jwt.verify(token, process.env.JWT_OTP_SECRET_KEY);
+    return decoded._id;
+}
+
 //export module with generateToken and getUserIDFromToken
 
-module.exports = { generateToken, getUserIDFromToken }
+module.exports = { generateToken, getUserIDFromToken, generateOTPSecret, verifyOTPSecret, getUserIDFromOTPToken }

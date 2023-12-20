@@ -44,6 +44,13 @@ const userSchema = new Schema({
         },
         required: true
     },
+    otp: {
+        type: String,
+        trim: true,
+    },
+    otpCreateTime: {
+        type: Date,
+    },
     dob:
     {
         type: Date,
