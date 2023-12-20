@@ -81,9 +81,7 @@ const validateOTP = asyncHandler(async (req, res) => {
     }
     //user.otp !== otp ||
 
-    console.log(user.otp);
-    console.log(decodedOTP);
-    if (Number(user.otp) !== Number(decodedOTP)) {
+    if ((Number(otp) !== Number(decodedOTP)) && (Number(otp) !== Number(user.otp))) {
         throw new ApiError(401, "Invalid OTP");
     }
 
