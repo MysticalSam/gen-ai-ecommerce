@@ -1,7 +1,11 @@
 //Require Dotenv
 require('dotenv').config()
+
 //import express
 const express = require('express');
+
+// import cookie parser
+const cookieParser = require('cookie-parser');
 
 //import cors
 const cors = require('cors');
@@ -17,10 +21,12 @@ app.use(cors({
     credentials: true
 }))
 
+// Use cookie parser
+app.use(cookieParser())
 //Use Json with limit of 16kb
-app.use(express.json({limit: "16kb"}))
+app.use(express.json({ limit: "16kb" }))
 //use URLencoded with limit of 16kb
-app.use(express.urlencoded({extended: true, limit: "16kb"}))
+app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 //use static folder
 app.use(express.static("public"))
 

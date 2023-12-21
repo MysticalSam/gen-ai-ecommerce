@@ -44,6 +44,9 @@ const userSchema = new Schema({
         },
         required: true
     },
+    refreshToken: {
+        type: String
+    },
     otp: {
         type: String,
         trim: true,
@@ -105,9 +108,13 @@ userSchema.pre("save", async function (next) {
     next()
 })
 
+// Compare Passwords
+
 userSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password)
 }
+
+// Generate Access Token
 
 userSchema.methods.generateAccessToken = function () {
     return jwt.sign(
@@ -122,6 +129,9 @@ userSchema.methods.generateAccessToken = function () {
         }
     )
 }
+
+// Generate Refresh Token
+
 userSchema.methods.generateRefreshToken = function () {
     return jwt.sign(
         {
@@ -134,11 +144,12 @@ userSchema.methods.generateRefreshToken = function () {
     )
 }
 
-userSchema.methods.getUserIDFromToken = function (token) {
-    const decoded = jwt.verify(token, JWT_SECRET_KEY);
-    return decoded._Id;
-}
+// Get User ID from Token
 
+userSchema.methods.getUserIdFromToken = function (token) {
+    const decoded = jwt.verify(token, JWT_SECRET_KEY);
+    return decoded._id;
+}
 //create user schema
 const User = mongoose.model('User', userSchema);
 //export module

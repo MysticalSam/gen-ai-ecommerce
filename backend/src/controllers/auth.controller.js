@@ -30,8 +30,6 @@ const login = asyncHandler(async (req, res) => {
     // generate otp secret with jwt
     const otpSecret = jwtProvider.generateOTPSecret(user._id, otp);
 
-    console.log(otpSecret);
-
     return res.status(200).json(
         new ApiResponse(200, { otp, otpSecret }, "Enter this OTP")
     )
@@ -103,6 +101,17 @@ const validateOTP = asyncHandler(async (req, res) => {
 
     await user.save();
 
+    const {accessToken, refreshToken} = await generateAccessAndRefereshTokens(user._id)
+
+    const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+
     return res.status(200).json(
         new ApiResponse(200, { jwt, user }, "Login successful")
     )
@@ -135,5 +144,20 @@ const changePassword = asyncHandler(async (req, res) => {
     )
 })
 
+const logout = asyncHandler(async (req, res) => {
+    const jwt = req.headers.authorization.split(" ")[1];
+    if (!jwt) {
+        throw new ApiError(401, "Unauthorized! Token Not Found");
+    }
+    const userId = await jwtProvider.getUserIDFromToken(jwt);
+    const user = await User.findById(userId);
+    user.token = undefined;
+    await user.save();
+
+    return res.status(200).json(
+        new ApiResponse(200, { user }, "Logout successful")
+    )
+})
+
 //export module with register and login
-module.exports = { login, changePassword, validateOTP }
+module.exports = { login, changePassword, validateOTP, logout }
