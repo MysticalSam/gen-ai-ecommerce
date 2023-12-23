@@ -284,4 +284,29 @@ const generateTokens = async (userId) => {
     }
 }
 
-module.exports = { registerUser, loginUser, logoutUser, changePassword, getCurrentUser, getUserById, getUserByEmail, getUserProfileFromToken, getAllUsers, validateOTP }
+const validateForgotToken = asyncHandler(async (req, res) => {
+    const { token } = req.body;
+    const decoded = await jwtProvider.verifyForgotToken(token);
+    const user = await User.findById(decoded._id);
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200, user, "Success")
+    )
+})
+
+module.exports = {
+    registerUser,
+    loginUser,
+    logoutUser,
+    changePassword,
+    getCurrentUser,
+    getUserById,
+    getUserByEmail,
+    getUserProfileFromToken,
+    getAllUsers,
+    validateOTP,
+    validateForgotToken
+}
