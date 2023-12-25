@@ -11,12 +11,14 @@ const { registerUser,
     getUserProfileFromToken,
     getAllUsers,
     validateOTP,
-    validateForgotToken
+    verifyResetPasswordToken,
+    resetPassword
 } = require('../controllers/user.controller');
 
 router.post('/login', loginUser);
 router.post('/otp-verify', validateOTP);
-router.post('/verify/:token', validateForgotToken);
+router.post('/reset-password', resetPassword);
+router.post('/verify', verifyResetPasswordToken);
 
 // Secured Routes
 router.route('/change-password').post(verifyJWT, changePassword);

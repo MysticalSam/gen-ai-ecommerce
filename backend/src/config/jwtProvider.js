@@ -35,6 +35,19 @@ const getUserIDFromOTPToken = (token) => {
     return decoded._id;
 }
 
+const generateResetPasswordToken = (user) => {
+    const { _id, email } = user;
+    const token = jwt.sign({ _id, email }, process.env.JWT_RESET_SECRET_KEY, {
+        expiresIn: process.env.JWT_RESET_TOKEN_EXPIRY,
+    })
+    return token;
+}
+
+const verifyResetPasswordToken = (token) => {
+    const decoded = jwt.verify(token, process.env.JWT_RESET_SECRET_KEY);
+    return decoded._id;
+}
+
 //export module with generateToken and getUserIDFromToken
 
-module.exports = { generateToken, getUserIDFromToken, generateOTPSecret, verifyOTPSecret, getUserIDFromOTPToken }
+module.exports = { generateToken, getUserIDFromToken, generateOTPSecret, verifyOTPSecret, getUserIDFromOTPToken, generateResetPasswordToken, verifyResetPasswordToken }

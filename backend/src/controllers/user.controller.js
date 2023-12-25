@@ -5,6 +5,7 @@ const ApiError = require('../utils/ApiError');
 const ApiResponse = require('../utils/ApiResponse');
 const asyncHandler = require('../utils/asyncHandler');
 const jwtProvider = require('../config/jwtProvider');
+const bcrypt = require('bcrypt');
 
 //Create a async function for user creation with accepting userData in try catch block 
 
@@ -284,16 +285,51 @@ const generateTokens = async (userId) => {
     }
 }
 
-const validateForgotToken = asyncHandler(async (req, res) => {
-    const { token } = req.body;
-    const decoded = await jwtProvider.verifyForgotToken(token);
-    const user = await User.findById(decoded._id);
+// Reset Password Request and Generate Email Token
+
+const resetPassword = asyncHandler(async (req, res) => {
+
+    const user = await User.findOne({ email: req.body.email }).select("-password -refreshToken");
+    //if no user is found throw an error that user with this email is not found.
     if (!user) {
         throw new ApiError(404, "User not found");
     }
+    const token = await jwtProvider.generateResetPasswordToken(user);
+    const resetPasswordLink = `XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX${token}`;
+    const mailOptions = {
+        from: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        to: user.email,
+        subject: "Reset Password Link",
+        text: `Please click on the following link to reset your password: ${resetPasswordLink}`,
+        html: `<p>Please click on the following link to reset your password: <a href="${resetPasswordLink}">${resetPasswordLink}</a></p>`,
+    }
+    // await sendMail(mailOptions);
+    console.log(token)
+    return res.status(200).json(
+        new ApiResponse(200, { token }, "Success")
+    )
+})
+
+const verifyResetPasswordToken = asyncHandler(async (req, res) => {
+    const { newPassword } = req.body;
+    const jwt = req.headers.authorization.split(" ")[1];
+    if (!jwt) {
+        throw new ApiError(401, "Unauthorized! Token Not Found");
+    }
+    const decoded = await jwtProvider.verifyResetPasswordToken(jwt);
+    if (!decoded) {
+        throw new ApiError(401, "Token Error");
+    }
+    console.log(decoded)
+    const user = await User.findById(decoded);
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+    user.password = newPassword;
+    await user.save();
 
     return res.status(200).json(
-        new ApiResponse(200, user, "Success")
+        new ApiResponse(200, {}, "Password Reset Successfully")
     )
 })
 
@@ -308,5 +344,6 @@ module.exports = {
     getUserProfileFromToken,
     getAllUsers,
     validateOTP,
-    validateForgotToken
+    resetPassword,
+    verifyResetPasswordToken
 }
